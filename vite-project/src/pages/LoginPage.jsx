@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../configs";
 
 export default function LoginPage() {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const [formLogin, setFormLogin] = useState({
     email: "bruno@email.com",
     password: "bruno",
@@ -39,7 +39,7 @@ export default function LoginPage() {
 
     const response = await api.post("/auth/login", formLogin);
     localStorage.setItem("token", response.access_token);
-    navigation("/");
+    navigate("/");
   };
 
   return (

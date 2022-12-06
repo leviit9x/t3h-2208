@@ -10,7 +10,6 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    console.log("{config}.{request}", config);
     const token = localStorage.getItem("token");
 
     if (token) {
@@ -25,10 +24,13 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    console.log("{config}.{response}", response);
     return response.data;
   },
   (error) => {
+    if (error?.response?.status === 401) {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
     error;
   }
 );
