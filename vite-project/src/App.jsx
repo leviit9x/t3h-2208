@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import RootRouter from "./routers";
+import "./store/index";
 
 function App() {
   return (
