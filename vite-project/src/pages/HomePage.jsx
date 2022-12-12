@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SideA from "../components/SideA";
 import SideB from "../components/SideB";
-import { api } from "../configs";
 
 export default function HomePage() {
   return (

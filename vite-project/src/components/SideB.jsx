@@ -1,14 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { userSelector } from "../store/selectors";
-
-//
-// {
-//   user:
-//   product:
-// }
+import { useDispatch } from "react-redux";
+import { fetchUserById } from "../store/api/auth";
+import { useSideA } from "./useSideA";
 
 export default function SideB() {
-  const root = useSelector((state) => state.auth);
-  return <div>{JSON.stringify(root)}</div>;
+  const dispatch = useDispatch();
+
+  const [storage] = useSideA();
+
+  storage.set("SideA", "SideA");
+
+  function handleSetUser2() {
+    dispatch(fetchUserById(2));
+  }
+  return (
+    <div>
+      <button onClick={handleSetUser2}>set user 2</button>
+    </div>
+  );
 }
