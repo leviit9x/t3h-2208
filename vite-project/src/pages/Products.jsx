@@ -18,16 +18,14 @@ export default function Products() {
   }, []);
 
   function go2Detail(id) {
-    const searchQuery = {
-      key: "node",
-      mode: "light",
-    };
-
-    const _search = new URLSearchParams(searchQuery);
-
     navigate({
       pathname: "/products/" + id,
-      search: _search.toString(),
+    });
+  }
+
+  function go2Preview(id) {
+    navigate({
+      pathname: "/products/preview/" + id,
     });
   }
 
@@ -35,7 +33,9 @@ export default function Products() {
     <ul>
       {products.map((pr, idx) => (
         <li key={idx}>
-          <div onClick={() => go2Detail(pr.id)}>{pr.name}</div>
+          <button>Name: {pr.name}</button>
+          <button onClick={() => go2Preview(pr.id)}>Preview</button>
+          <button onClick={() => go2Detail(pr.id)}>Detail</button>
         </li>
       ))}
     </ul>

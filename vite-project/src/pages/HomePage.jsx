@@ -1,8 +1,6 @@
-import { LockClosedIcon } from "@heroicons/react/20/solid";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import SideA from "../components/SideA";
-import SideB from "../components/SideB";
 
 export default function HomePage() {
   return (

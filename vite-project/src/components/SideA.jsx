@@ -1,23 +1,7 @@
 import React from "react";
-import { useState } from "react";
-
-import { useDispatch, useSelector } from "react-redux";
-import { useHover } from "../hooks/useHover";
-import { fetchUserById } from "../store/api/auth";
-import { useSideA } from "./useSideA";
+import { useHover } from "@hooks";
 
 export default function SideA() {
-  const dispatch = useDispatch();
-  //   const [storage] = useSideA();
-  //
-  //   storage.set("SideA", "SideA");
-  //
-  //   const user = useSelector((state) => state.auth.user);
-  //
-  //   const handleSetUser = async () => {
-  //     dispatch(fetchUserById(1));
-  //   };
-
   const Box = () => {
     const hookHover = useHover();
     return (
@@ -32,8 +16,6 @@ export default function SideA() {
 
   return (
     <div>
-      {/* <button onClick={handleSetUser}>set State</button>
-      <p>{JSON.stringify(user)}</p> */}
       {[1, 2, 3, 4].map((elm) => (
         <Box key={elm} />
       ))}
