@@ -1,12 +1,30 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import SideA from "../components/SideA";
+import { useDispatch, useSelector } from "react-redux";
+import { setProductList } from "../store/features/productsSlice";
+import { useLazyGetProductListQuery } from "../services";
+import { useEffect } from "react";
 
 export default function HomePage() {
+  const [getProductList, { data, isLoading, isFetching, isError, isSuccess }] =
+    useLazyGetProductListQuery();
+
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.product.product.products);
+
+  function handleGetProductList() {
+    getProductList();
+  }
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setProductList(data));
+    }
+  }, [data]);
+
   return (
     <div className="flex-1 flex space-x-5 justify-center items-center">
-      <SideA></SideA>
-      <Link to={"/site-b"}>go 2 site B</Link>
+      <button onClick={handleGetProductList}>set product list</button>
+      <div>{JSON.stringify(productList)}</div>
     </div>
   );
 }

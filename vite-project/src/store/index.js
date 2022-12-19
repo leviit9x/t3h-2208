@@ -1,21 +1,45 @@
-import thunk from "redux-thunk"; // no changes here 😀
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import { authReducer } from "./authReducer";
-import { productReducer } from "./productReducer";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import { mergeReducerService, productApi } from "../services";
+import { productReducer } from "./features";
+import { logger } from "./middlewares";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
-const rootReducers = combineReducers({
-  auth: authReducer,
+const rootReducer = combineReducers({
   product: productReducer,
+  ...mergeReducerService,
 });
 
-export const store = createStore(rootReducers, applyMiddleware(thunk));
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
-// { type: 'getProduct' } => dispatch lan 1
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// middleware / call api/getProduct => fetch data
+export const store = configureStore({
+  reducer: {
+    product: persistedReducer,
+    ...mergeReducerService,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    })
+      .concat(productApi.middleware)
+      .concat(logger),
+});
 
-// { type: 'getProduct', payload: data } => dispatch lan 2
-
-// redux thunk
-
-// redux saga
+export const persistor = persistStore(store);
