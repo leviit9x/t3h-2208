@@ -1,7 +1,5 @@
 {
-  "history_search": [
-    
-  ],
+  "history_search": [],
   "products": [
     {
       "id": 1,
@@ -34,6 +32,46 @@
       "quantity": 4000,
       "locationId": 2,
       "familyId": 3
+    },
+    {
+      "name": "Product1671628278740",
+      "cost": 10,
+      "quantity": 1000,
+      "locationId": 1,
+      "familyId": 1,
+      "id": 5
+    },
+    {
+      "name": "Product 1671628398520",
+      "cost": 1671628398520,
+      "quantity": 1671628398520,
+      "locationId": 1671628398520,
+      "familyId": 1671628398520,
+      "id": 6
+    },
+    {
+      "name": "Product 1671628463120",
+      "cost": 1671628463120,
+      "quantity": 1671628463120,
+      "locationId": 1671628463120,
+      "familyId": 1671628463120,
+      "id": 7
+    },
+    {
+      "name": "Product 1671628466218",
+      "cost": 1671628466218,
+      "quantity": 1671628466219,
+      "locationId": 1671628466219,
+      "familyId": 1671628466219,
+      "id": 8
+    },
+    {
+      "name": "Product 1671628473319",
+      "cost": 1671628473319,
+      "quantity": 1671628473319,
+      "locationId": 1671628473319,
+      "familyId": 1671628473319,
+      "id": 9
     }
   ],
   "locations": [

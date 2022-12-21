@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/dist/query";
+
 import { mergeReducerService, productApi } from "../services";
 import { productReducer } from "./features";
 import { logger } from "./middlewares";
@@ -20,18 +20,17 @@ const rootReducer = combineReducers({
   ...mergeReducerService,
 });
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+  {
+    key: "root",
+    storage,
+    // transforms: [SetTransform],
+  },
+  rootReducer
+);
 
 export const store = configureStore({
-  reducer: {
-    product: persistedReducer,
-    ...mergeReducerService,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

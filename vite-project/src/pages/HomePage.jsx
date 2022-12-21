@@ -1,29 +1,29 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setProductList } from "../store/features/productsSlice";
-import { useLazyGetProductListQuery } from "../services";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useCreateProductMutation, useGetProductListQuery } from "../services";
 
 export default function HomePage() {
-  const [getProductList, { data, isLoading, isFetching, isError, isSuccess }] =
-    useLazyGetProductListQuery();
+  useGetProductListQuery();
+  const [createPost] = useCreateProductMutation();
 
-  const dispatch = useDispatch();
-  const productList = useSelector((state) => state.product.product.products);
+  const productList = useSelector((state) => state.product.products);
 
-  function handleGetProductList() {
-    getProductList();
+  function handleCreatePost() {
+    const example = {
+      name: "Product " + new Date().getTime(),
+      cost: new Date().getTime(),
+      quantity: new Date().getTime(),
+      locationId: new Date().getTime(),
+      familyId: new Date().getTime(),
+    };
+
+    createPost(example);
   }
-
-  useEffect(() => {
-    if (data) {
-      dispatch(setProductList(data));
-    }
-  }, [data]);
 
   return (
     <div className="flex-1 flex space-x-5 justify-center items-center">
-      <button onClick={handleGetProductList}>set product list</button>
+      <button onClick={handleCreatePost}>create post</button>
+      {/* <button onClick={handleGetProductList}>set product list</button> */}
       <div>{JSON.stringify(productList)}</div>
     </div>
   );
